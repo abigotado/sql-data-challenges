@@ -1,5 +1,5 @@
 -- Создание таблицы Vehicle
- 
+
 CREATE TABLE Vehicle (
 	maker VARCHAR(100) NOT NULL,
 	model VARCHAR(100) NOT NULL,

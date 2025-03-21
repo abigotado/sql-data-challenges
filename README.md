@@ -32,9 +32,13 @@
    - `Customer` (ID_customer SERIAL, name VARCHAR, email VARCHAR, phone VARCHAR) – Таблица клиентов.
    - `Booking` (ID_booking SERIAL, ID_room INT, ID_customer INT, check_in_date DATE, check_out_date DATE) – Записи о бронированиях номеров.
 
-4. **Структура организации**  
-   Описывает иерархию сотрудников в организации.
-   - `Employee` (id SERIAL, name VARCHAR, position VARCHAR, department VARCHAR, manager_id INT) – Таблица сотрудников, где `manager_id` связывает сотрудника с его начальником.
+4. **Организационная структура**  
+   Описывает внутреннюю иерархию сотрудников, отделов, ролей и проектов в компании.
+   - `Departments` (DepartmentID SERIAL, DepartmentName VARCHAR) – Таблица отделов.
+   - `Roles` (RoleID SERIAL, RoleName VARCHAR) – Таблица должностей.
+   - `Employees` (EmployeeID SERIAL, Name VARCHAR, Position VARCHAR, ManagerID INT, DepartmentID INT, RoleID INT) – Таблица сотрудников с иерархией.
+   - `Projects` (ProjectID SERIAL, ProjectName VARCHAR, StartDate DATE, EndDate DATE, DepartmentID INT) – Таблица проектов, связанных с отделами.
+   - `Tasks` (TaskID SERIAL, TaskName VARCHAR, AssignedTo INT, ProjectID INT) – Таблица задач, связанных с сотрудниками и проектами.
 
 ## Установка и запуск
 1. **Убедитесь, что у вас установлен PostgreSQL**.
@@ -51,11 +55,15 @@
      ```
      psql -U ваш_пользователь -d ваша_база -f hotel_booking/initialization/base_init.sql
      ```
+   - Для базы данных "Организационная структура":
+     ```
+     psql -U ваш_пользователь -d ваша_база -f organization_structure/initialization/base_init.sql
+     ```
 3. **Выполните SQL-запросы для решения задач**, находящиеся в соответствующих папках:
    - Запросы по "Транспортным средствам" – в `vehicles/`
    - Запросы по "Автомобильным гонкам" – в `car_races/`
    - Запросы по "Бронированию отелей" – в `hotel_booking/`
+   - Запросы по "Организационной структуре" – в `organization_structure/`
 
-## Примечания
-- Используется предоставленный SQL-скрипт без изменений.
-- Решения задач будут оформлены в отдельных SQL-файлах.
+## Структура проекта
+В каждой папке (`car_races`, `hotel_booking`, `organization_structure`, `vehicles`) есть подкаталог `initialization` с файлом `base_init.sql`. Файлы с решениями задач располагаются в корневой директории каждой категории и начинаются с номера задачи (`1_`, `2_`, `3_` и т. д.). Файлы с решениями задач можно найти в соответствующих каталогах по их номерам.
